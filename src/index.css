@@ -1,0 +1,13 @@
+@import "tailwindcss";
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  scrollbar-width: none;
+}
+
+.stroke-text {
+  -webkit-text-stroke: 2px white;
+  color: transparent;
+}
