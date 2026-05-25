@@ -1,24 +1,14 @@
-import { createBrowserRouter, useNavigate } from "react-router-dom";
+import { createBrowserRouter} from "react-router-dom";
 import Body from "./components/Body";
 import MovieView from "./components/MovieView";
 import { Provider } from "react-redux";
 import { store } from "./app/store";
 import Login from "./components/Login";
-import { useEffect } from "react";
-import { onAuthStateChanged } from "firebase/auth";
-import { auth } from "../utils/firebase";
+import Home from "./app/pages/home";
+import TVShows from "./app/pages/TvShow";
 
 const App = () => {
-  const Navigate = useNavigate();
-  useEffect(() => {
-  const unsubscribe = onAuthStateChanged(auth, (user) => {
-    if (user) {
-      Navigate("/profile");
-    }
-  });
 
-  return () => unsubscribe();
-}, []);
   return (
     <div className="bg-black ">
       <Provider store={store}>
@@ -54,6 +44,14 @@ export const router = createBrowserRouter([
   {
     path: "/:id",
     element: <MovieView />,
+  },
+    {
+    path: "home",
+    element: <Home />,
+  },
+  {
+    path: "tVShows",
+    element: <TVShows />,
   },
 ]);
 
