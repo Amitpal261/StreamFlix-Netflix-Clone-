@@ -1,7 +1,7 @@
 <!-- 🎬 PREMIUM NETFLIX CLONE README -->
 
 <p align="center">
-  <img src="https://i.imgur.com/z6bZQ0w.gif" width="100%" alt="Netflix Clone Banner"/>
+  <img src="src\assets\home.png" width="100%" alt="Netflix Clone Banner"/>
 </p>
 
 <h1 align="center">🎬 Netflix Clone – Premium Streaming Platform</h1>
