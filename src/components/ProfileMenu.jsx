@@ -6,17 +6,19 @@ import { auth } from "../../utils/firebase";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../features/auth/authSilce";
 import Update from "./UpdateProfile";
+import { useNavigate } from "react-router-dom";
 export default function ProfileMenu() {
   const [open, setOpen] = useState(false);
   const [updateProfileOpen, setUpdateProfileOpen] = useState(false);
  const dispatch = useDispatch();
 const displayUser = useSelector((state) => state.auth.user);
-
+ const navigate = useNavigate();
  const logoutUser = async () => {
   try {
     await signOut(auth);
     console.log("User logged out");
     dispatch(logout());
+    navigate("/");
   } catch (error) {
     console.error("Logout error:", error.message);
   }
