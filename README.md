@@ -113,8 +113,7 @@ src/
 ## ⚙️ Installation & Setup
 
 ```bash
-# Clone the repo
-git clone https://github.com/AmitPal261/netflix-clone.git
+
 
 # Install dependencies
 npm install
