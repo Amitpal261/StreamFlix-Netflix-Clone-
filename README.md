@@ -58,14 +58,6 @@ This project replicates a real-world streaming platform with:
 
 ---
 
-## 🎥 Demo Preview (Add Your GIF Here)
-
-<p align="center">
-  <img src="https://i.imgur.com/your-demo.gif" width="80%" alt="App Demo"/>
-</p>
-
----
-
 ## ⚡ Features
 
 ✨ **Core Highlights**
@@ -122,7 +114,7 @@ src/
 
 ```bash
 # Clone the repo
-git clone https://github.com/your-username/netflix-clone.git
+git clone https://github.com/AmitPal261/netflix-clone.git
 
 # Install dependencies
 npm install
