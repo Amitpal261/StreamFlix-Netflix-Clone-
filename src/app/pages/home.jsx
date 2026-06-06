@@ -1,64 +1,69 @@
 import { motion } from "framer-motion";
-import { Play, Info } from "lucide-react";
-import { API_READ_ACCESS_TOKEN, } from "../../../utils/contest";
-import ProfileMenu from "../../components/ProfileMenu";
-import { Provider } from "react-redux";
-import { store } from "../store";
-import Footer from "../../components/Footer";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import { Play, Info} from "lucide-react";
+import { API_READ_ACCESS_TOKEN } from "../../../utils/contest";
+import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
+
+import Footer from "../../components/Footer";
 import Navbar from "../../components/Navbar";
+import ChatGptModel from "../../components/ChatGptModel";
+import DynamicMoviesView from "../../components/DynamicMoviesView";
+
 export default function Home() {
+  const params = useParams();
+  console.log("parmas", params);
+  console.log("Current Path:", params);
+  const chatGptMode = useSelector((state) => state.chatGpt.mode);
+  //console.log("ChatGPT Mode:", chatGptMode);
 
   const [moviesData, setMoviesData] = useState([]);
+  console.log("Movies Data:", moviesData[0]?.id);
   useEffect(() => {
-     fetch("https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc", {
+    fetch("https://api.themoviedb.org/3/discover/movie?language=en-US&page=1", {
       headers: {
-        Authorization: `Bearer ${API_READ_ACCESS_TOKEN}`, 
+        Authorization: `Bearer ${API_READ_ACCESS_TOKEN}`,
       },
     })
-      .then((response) => response.json())
-      .then((data) => {
-        setMoviesData(data.results);
-        console.log("Fetched Movies:", data.results); // Log the fetched movies data
-      })
-      .catch((error) => {
-        console.error("Error fetching movies:", error);
-      });
-
+      .then((res) => res.json())
+      .then((data) => setMoviesData(data.results));
   }, []);
-  return (
-    <Provider store={store}>
 
+  return (
     <div className="relative min-h-screen bg-black text-white overflow-hidden">
       {/* BACKGROUND */}
       <div
         className="absolute inset-0 scale-105 opacity-90"
         style={{
-          backgroundImage: `url(${moviesData.length > 0 ? `https://image.tmdb.org/t/p/original${moviesData[0].backdrop_path}` : "https://images.unsplash.com/photo-1562448079-b5631888445f?q=80&w=1935&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"})`,
+          backgroundImage: `url(${
+            moviesData[0]
+              ? `https://image.tmdb.org/t/p/original${moviesData[1].backdrop_path}`
+              : ""
+          })`,
           backgroundSize: "cover",
-          backgroundPosition: "center",
         }}
       />
 
-      {/* GLOBAL DARK OVERLAY */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/60 to-black" />
-
-      {/* NAVBAR */}
-      
-      <Navbar/>
-
      
+     {/* GLOBAL DARK OVERLAY */}
+     <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/60 to-black" />
 
-      {/* HERO */}
-      <div className="relative z-10 h-[90vh] flex items-center px-16">
-        <div className="max-w-2xl">
-          <motion.h1
+      <Navbar />
+
+      {/* 🔥 CHAT MODE */}
+      {chatGptMode === "chat"  || params.id ? (
+       chatGptMode === "chat" ? <ChatGptModel /> : <DynamicMoviesView />,
+       params.id ? <DynamicMoviesView MovieId={params.id} MovieTitle={moviesData.find(m => m.id === parseInt(params.id))?.title} /> : <ChatGptModel />
+      ) : (
+        <>
+          <div className="relative z-10 h-[90vh] flex items-center px-16">
+       <div className="max-w-2xl">
+           <motion.h1
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             className="text-7xl font-extrabold leading-tight drop-shadow-lg"
-          >
+        >
             {moviesData.length > 0 ? moviesData[0].title : "Devil in Ohio"}
           </motion.h1>
 
@@ -66,7 +71,7 @@ export default function Home() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.5 }}
-            className="mt-6 text-gray-300 text-lg leading-relaxed"
+             className="mt-6 text-gray-300 text-lg leading-relaxed"
           >
             Determined to protect a young patient who escaped a mysterious cult,
             a psychiatrist takes the girl in — putting her own family at risk.
@@ -84,14 +89,19 @@ export default function Home() {
             </button>
 
             <button className="flex items-center gap-2 bg-white/10 backdrop-blur-md px-8 py-3 rounded-xl border border-white/20 hover:bg-white/20 transition">
-              <Info size={18} /> More Info
-            </button>
-          </motion.div>
-        </div>
-      </div>
+              <Info size={18} /> More Info </button>
+         </motion.div>
+       </div>
+     </div>
 
-      {/* MOVIE ROW */}
-      <div className="relative z-10 px-16 pb-20">
+
+
+        </>
+      )}
+
+
+        {/* MOVIE ROW */}
+      <div className="relative z-10 px-16 pb-20 mt-10">
 
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-2xl font-semibold tracking-wide">
@@ -105,7 +115,7 @@ export default function Home() {
         <div className="relative group">
           {/* gradient edges for premium feel */}
           <div className="pointer-events-none absolute left-0 top-0 h-full w-24 bg-gradient-to-r from-black to-transparent z-20" />
-          <div className="pointer-events-none absolute right-0 top-0 h-full w-24 bg-gradient-to-l from-black to-transparent z-20" />
+         <div className="pointer-events-none absolute right-0 top-0 h-full w-24 bg-gradient-to-l from-black to-transparent z-20" /> 
 
           <div className="flex gap-6 overflow-x-auto scrollbar-hide scroll-smooth py-4">
             {moviesData.map((movie, index) => (
@@ -118,7 +128,7 @@ export default function Home() {
                 <img
                   src={`https://image.tmdb.org/t/p/w500${movie.backdrop_path}`}
                   className="w-full h-full object-cover group-hover:scale-110 transition duration-500"
-                />
+                /> 
 
                 {/* glossy overlay */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition duration-300" />
@@ -126,7 +136,7 @@ export default function Home() {
                 {/* play button */}
                 <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition">
                   <div className="bg-white/20 backdrop-blur-md p-3 rounded-full border border-white/30">
-                    <Play className="text-white" />
+                    <Link to={`movies/${movie.id}`} ><Play className="text-white" /></Link>
                   </div>
                 </div>
 
@@ -139,12 +149,9 @@ export default function Home() {
           </div>
         </div>
         <Footer  />
-      </div>
-      
+     </div> 
     </div>
-  
-    </Provider>
-    
   );
 }
- 
+
+

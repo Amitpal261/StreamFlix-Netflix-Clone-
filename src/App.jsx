@@ -1,19 +1,19 @@
 import { createBrowserRouter} from "react-router-dom";
 import Body from "./components/Body";
 import MovieView from "./components/MovieView";
-import { Provider } from "react-redux";
-import { store } from "./app/store";
 import Login from "./components/Login";
 import Home from "./app/pages/home";
 import TVShows from "./app/pages/TvShow";
+import ChatGptModel from "./components/ChatGptModel";
+import DynamicMoviesView from "./components/DynamicMoviesView";
 
 const App = () => {
 
   return (
     <div className="bg-black ">
-      <Provider store={store}>
+      
         <Body />
-      </Provider>
+     
     </div>
   );
 };
@@ -48,11 +48,24 @@ export const router = createBrowserRouter([
     {
     path: "home",
     element: <Home />,
+    children : [
+      {
+        path : "chatgpt",
+        element :<ChatGptModel/>
+      },
+      {
+        path : "movies/:id",
+        element : <DynamicMoviesView/>
+      }
+    ]
   },
   {
     path: "tVShows",
     element: <TVShows />,
   },
+  {path : "chatgpt",
+    element :<ChatGptModel/>
+  }
 ]);
 
 export default App;

@@ -1,15 +1,13 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { API_KEY } from '../../utils/contest';
-
+import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { API_KEY } from "../../utils/contest";
 
 export const moviesApi = createApi({
-  reducerPath: 'moviesApi',
+  reducerPath: "moviesApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: 'https://api.themoviedb.org/3/',
+    baseUrl: "https://api.themoviedb.org/3/",
   }),
 
   endpoints: (builder) => ({
-    
     getTrending: builder.query({
       query: () => `trending/movie/day?api_key=${API_KEY}`,
     }),
@@ -22,10 +20,15 @@ export const moviesApi = createApi({
       query: (genreId) =>
         `discover/movie?with_genres=${genreId}&api_key=${API_KEY}`,
     }),
-    getMovieVideos: builder.query({
-   query: (movieId) => `/movie/${movieId}/videos`,
+  searchMovie: builder.query({
+  query: (movieName) =>
+    `search/movie?query=${movieName}&api_key=${API_KEY}`,
 }),
-
+    // ✅ FIX HERE (ADD API KEY)
+    getMovieVideos: builder.query({
+      query: (movieId) =>
+        `movie/${movieId}/videos?api_key=${API_KEY}`,
+    }),
   }),
 });
 
@@ -34,4 +37,5 @@ export const {
   useGetTopRatedQuery,
   useGetByGenreQuery,
   useGetMovieVideosQuery,
+  useSearchMovieQuery,
 } = moviesApi;
