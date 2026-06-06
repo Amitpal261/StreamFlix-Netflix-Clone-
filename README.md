@@ -1,10 +1,11 @@
+
 <!-- 🎬 PREMIUM NETFLIX CLONE README -->
 
 <p align="center">
   <img src="src\assets\home.png" width="100%" alt="Netflix Clone Banner"/>
 </p>
 
-<h1 align="center">🎬 Netflix Clone – Premium Streaming Platform</h1>
+<h1 align="center">🎬 Netflix Clone – AI Powered Streaming Platform</h1>
 
 <p align="center">
   <a href="https://netflix-cf98a.web.app">
@@ -40,14 +41,22 @@
 
 👉 **Experience it here:**
 🔗 https://netflix-cf98a.web.app/Home
+👉 **Experience it here:**
+🔗 https://netflix-cf98a.web.app/Home
 
 ---
 
 ## 🌟 About the Project
 
 A **high-performance Netflix-inspired web app** built with modern technologies like **React, Next.js, Firebase, and React Query**, now enhanced with **AI-powered features**.
+A **high-performance Netflix-inspired web app** built with modern technologies like **React, Next.js, Firebase, and React Query**, now enhanced with **AI-powered features**.
 
 This project replicates a real-world streaming platform with:
+
+* Dynamic UI
+* Secure authentication
+* Scalable architecture
+* Intelligent content discovery
 
 * Dynamic UI
 * Secure authentication
@@ -77,14 +86,37 @@ This project replicates a real-world streaming platform with:
 * 🎯 Personalized content suggestions
 * ⚡ Improved content discovery experience
 
+* 🎬 Movie & TV browsing UI
+* 🔥 Trending & categorized rows
+* 🔐 Firebase Authentication
+* ⚡ React Query for smart API caching
+* 📱 Fully responsive design
+* 🎨 Smooth animations & hover effects
+* 🚀 Fast and optimized performance
+
+🤖 **AI Features**
+
+* 🧠 AI-based Movie Recommendation System
+* 🔍 Smart AI Search (natural language queries)
+* 🎯 Personalized content suggestions
+* ⚡ Improved content discovery experience
+
 ---
 
 ## 🧠 Tech Stack
 
 <p align="center">
 <img src="https://skillicons.dev/icons?i=react,nextjs,firebase,js,html,css" />
+<img src="https://skillicons.dev/icons?i=react,nextjs,firebase,js,html,css" />
 </p>
 
+| Tech               | Purpose                        |
+| ------------------ | ------------------------------ |
+| React.js / Next.js | Frontend UI & SSR              |
+| Firebase           | Authentication + Hosting       |
+| React Query        | API state & caching            |
+| REST API           | Movie data fetching            |
+| AI Integration     | Smart search & recommendations |
 | Tech               | Purpose                        |
 | ------------------ | ------------------------------ |
 | React.js / Next.js | Frontend UI & SSR              |
