@@ -1,21 +1,4 @@
-<!-- 🎬 PREMIUM NETFLIX CLONE README -->
 
-<p align="center">
-  <img src="src\assets\home.png" width="100%" alt="Netflix Clone Banner"/>
-</p>
-
-<h1 align="center">🎬 Netflix Clone – Premium Streaming Platform</h1>
-
-<p align="center">
-  <a href="https://netflix-cf98a.web.app/Home">
-    <img src="https://img.shields.io/badge/Live-Demo-red?style=for-the-badge&logo=firebase"/>
-  </a>
-  <img src="https://img.shields.io/github/stars/your-username/netflix-clone?style=for-the-badge" />
-  <img src="https://img.shields.io/github/forks/your-username/netflix-clone?style=for-the-badge" />
-  <img src="https://img.shields.io/github/license/your-username/netflix-clone?style=for-the-badge" />
-</p>
-
----
 <!-- 🎬 PREMIUM NETFLIX CLONE README -->
 
 <p align="center">
