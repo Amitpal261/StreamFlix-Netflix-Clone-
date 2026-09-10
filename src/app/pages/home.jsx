@@ -12,13 +12,11 @@ import DynamicMoviesView from "../../components/DynamicMoviesView";
 
 export default function Home() {
   const params = useParams();
-  console.log("parmas", params);
-  console.log("Current Path:", params);
   const chatGptMode = useSelector((state) => state.chatGpt.mode);
-  //console.log("ChatGPT Mode:", chatGptMode);
 
   const [moviesData, setMoviesData] = useState([]);
-  console.log("Movies Data:", moviesData[0]?.id);
+  const heroBackdrop = moviesData[1]?.backdrop_path || moviesData[0]?.backdrop_path || "";
+
   useEffect(() => {
     fetch("https://api.themoviedb.org/3/discover/movie?language=en-US&page=1", {
       headers: {
@@ -26,7 +24,8 @@ export default function Home() {
       },
     })
       .then((res) => res.json())
-      .then((data) => setMoviesData(data.results));
+      .then((data) => setMoviesData(data.results || []))
+      .catch(() => setMoviesData([]));
   }, []);
 
   return (
@@ -35,18 +34,15 @@ export default function Home() {
       <div
         className="absolute inset-0 scale-105 opacity-90"
         style={{
-          backgroundImage: `url(${
-            moviesData[0]
-              ? `https://image.tmdb.org/t/p/original${moviesData[1].backdrop_path}`
-              : ""
-          })`,
+          backgroundImage: heroBackdrop
+            ? `url(https://image.tmdb.org/t/p/original${heroBackdrop})`
+            : "none",
           backgroundSize: "cover",
         }}
       />
 
-     
-     {/* GLOBAL DARK OVERLAY */}
-     <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/60 to-black" />
+      {/* GLOBAL DARK OVERLAY */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/60 to-black" />
 
       <Navbar />
 
@@ -118,17 +114,23 @@ export default function Home() {
          <div className="pointer-events-none absolute right-0 top-0 h-full w-24 bg-gradient-to-l from-black to-transparent z-20" /> 
 
           <div className="flex gap-6 overflow-x-auto scrollbar-hide scroll-smooth py-4">
-            {moviesData.map((movie, index) => (
-              <motion.div
-                key={index}
-                whileHover={{ scale: 1.05, y: -12 }}
-                transition={{ type: "spring", stiffness: 200, damping: 15 }}
-                className="min-w-[220px] h-[140px] rounded-2xl overflow-hidden relative cursor-pointer group shadow-lg shadow-black/40"
-              >
-                <img
-                  src={`https://image.tmdb.org/t/p/w500${movie.backdrop_path}`}
-                  className="w-full h-full object-cover group-hover:scale-110 transition duration-500"
-                /> 
+            {moviesData.map((movie, index) => {
+              const imageUrl = movie?.backdrop_path
+                ? `https://image.tmdb.org/t/p/w500${movie.backdrop_path}`
+                : "https://images.unsplash.com/photo-1524989941526-cf5f5d4c3a1d?auto=format&fit=crop&w=900&q=80";
+
+              return (
+                <motion.div
+                  key={movie?.id || index}
+                  whileHover={{ scale: 1.05, y: -12 }}
+                  transition={{ type: "spring", stiffness: 200, damping: 15 }}
+                  className="min-w-[220px] h-[140px] rounded-2xl overflow-hidden relative cursor-pointer group shadow-lg shadow-black/40"
+                >
+                  <img
+                    src={imageUrl}
+                    alt={movie?.title || "Movie poster"}
+                    className="w-full h-full object-cover group-hover:scale-110 transition duration-500"
+                  /> 
 
                 {/* glossy overlay */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition duration-300" />
@@ -142,10 +144,11 @@ export default function Home() {
 
                 {/* subtle bottom label effect */}
                 <div className="absolute bottom-0 left-0 right-0 p-3 opacity-0 group-hover:opacity-100 transition">
-                  <p className="text-sm font-medium">{movie.title}</p>
+                  <p className="text-sm font-medium">{movie?.title || "Movie"}</p>
                 </div>
               </motion.div>
-            ))}
+              );
+            })}
           </div>
         </div>
         <Footer  />

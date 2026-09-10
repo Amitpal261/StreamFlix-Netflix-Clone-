@@ -8,22 +8,21 @@ import ChatGptModel from "./components/ChatGptModel";
 import DynamicMoviesView from "./components/DynamicMoviesView";
 
 const App = () => {
-
   return (
     <div className="bg-black ">
-      
-        <Body />
-     
+      <Body />
     </div>
   );
 };
+
+const AppError = () => <div className="text-white bg-black min-h-screen p-8">Something went wrong.</div>;
 
 export const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
 
-    errorElement: <Error />,
+    errorElement: <AppError />,
     children: [
       {
         path: "/",
